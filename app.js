@@ -3,6 +3,8 @@ const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const toShortUrl = require('./toShortUrl')
+const Url = require('./models/url')
+const indexURL = 'http://localhost:3000'
 
 const app = express()
 const PORT = 3000
@@ -33,9 +35,23 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-  console.log('req.body', req.body)
   const url = req.body.url
-  res.render('index')
+  Url.findOne({ originURL: url })
+    .lean()
+    .then(exist => {
+      if (exist) {
+        let err = `Short URL existed: ${exist.shortenedURL}`
+        return res.render('index', { err, shortUrl: exist.shortenedURL })
+      }
+      let shortUrl = toShortUrl(url)
+      Url.create({
+        originURL: url,
+        shortenedURL: shortUrl
+      })
+      return res.render('show', { shortUrl })
+    })
+    .catch(err => console.log(err))
+
 })
 
 app.listen(PORT, () => {
