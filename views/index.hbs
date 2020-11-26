@@ -1,1 +1,12 @@
-<h1>HELLO!!!</h1>
+<form action="/" method="POST">
+
+  <input type="text" name="url">
+
+  {{#if err}}
+  <h1>{{ err }}</h1>
+  {{/if}}
+
+
+  <button type="submit">送出</button>
+
+</form>

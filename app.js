@@ -1,6 +1,8 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+const toShortUrl = require('./toShortUrl')
 
 const app = express()
 const PORT = 3000
@@ -24,7 +26,15 @@ db.once('open', () => {
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
+app.use(bodyParser.urlencoded({ extended: true }))
+
 app.get('/', (req, res) => {
+  res.render('index')
+})
+
+app.post('/', (req, res) => {
+  console.log('req.body', req.body)
+  const url = req.body.url
   res.render('index')
 })
 
