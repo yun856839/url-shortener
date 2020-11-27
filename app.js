@@ -40,7 +40,7 @@ app.post('/', (req, res) => {
     .lean()
     .then(exist => {
       if (exist) {
-        let err = `Short URL existed: ${exist.shortenedURL}`
+        let err = `Short URL existed: `
         return res.render('index', { err, shortUrl: exist.shortenedURL })
       }
       let shortUrl = toShortUrl(indexUrl)
@@ -65,13 +65,12 @@ app.post('/', (req, res) => {
 
 app.get('/:key', (req, res) => {
   const key = req.params.key
-  console.log(key)
-  console.log(indexUrl + key)
-
+  // console.log(key)
+  // console.log(indexUrl + key)
   Url.findOne({ shortenedURL: indexUrl + key })
     .lean()
     .then((url) => {
-      console.log(url)
+      // console.log(url)
       res.redirect(url.originURL)
     })
     .catch(err => console.log(err))

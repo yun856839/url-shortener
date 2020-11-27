@@ -1,12 +1,22 @@
-<form action="/" method="POST">
+<div class="form-group text-center row d-flex justify-content-center mt-4">
+  <form action="/" method="POST">
 
-  <input type="text" name="url">
+    <div class="col-12">
+      {{#if err}}
+      <input type="hidden">
+      {{else}}
+      <input type="text" name="url" required>
+      {{/if}}
+    </div>
 
-  {{#if err}}
-  <h1>{{ err }}</h1>
-  {{/if}}
+    <div class="col-12">
+      {{#if err}}
+      <h4>{{ err }}<a href="{{shortUrl}}">{{shortUrl}}</a></h4>
+      {{/if}}
+    </div>
 
-
-  <button type="submit">送出</button>
-
-</form>
+    <div class="col-12">
+      <button class="btn btn-info mt-3" type="submit">Shorten</button>
+    </div>
+  </form>
+</div>
