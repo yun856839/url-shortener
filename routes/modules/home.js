@@ -1,8 +1,8 @@
 const express = require('express')
 const Url = require('../../models/url')
-const toShortUrl = require('../../toShortUrl')
+const toShortUrl = require('../../public/javascripts/toShortUrl')
 const router = express.Router()
-const indexUrl = 'http://localhost:3000/'
+const indexUrl = process.env.PORT || 'http://localhost:3000'
 
 router.get('/', (req, res) => {
   res.render('index')
@@ -41,7 +41,7 @@ router.get('/:key', (req, res) => {
   const key = req.params.key
   // console.log(key)
   // console.log(indexUrl + key)
-  Url.findOne({ shortenedURL: indexUrl + key })
+  Url.findOne({ shortenedURL: indexUrl + '/' + key })
     .lean()
     .then((url) => {
       // console.log(url)

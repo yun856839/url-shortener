@@ -9,7 +9,7 @@ function toShortUrl(url) {
     randomNumber += collection[Math.floor(Math.random() * collection.length)]
   }
 
-  return url + randomNumber
+  return url + '/' + randomNumber
   // console.log(randomNumber)
 }
 
