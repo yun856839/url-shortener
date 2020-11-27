@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const toShortUrl = require('./toShortUrl')
 const Url = require('./models/url')
-const indexURL = 'http://localhost:3000'
+const indexUrl = 'http://localhost:3000/'
 
 const app = express()
 const PORT = 3000
@@ -43,7 +43,17 @@ app.post('/', (req, res) => {
         let err = `Short URL existed: ${exist.shortenedURL}`
         return res.render('index', { err, shortUrl: exist.shortenedURL })
       }
-      let shortUrl = toShortUrl(url)
+      let shortUrl = toShortUrl(indexUrl)
+      Url.find()
+        .lean()
+        .then((urls) => {
+          urls.forEach((url) => {
+            while (url.shortenedURL.includes(shortUrl)) {
+              shortUrl = toShortUrl(indexUrl)
+            }
+            return shortUrl
+          })
+        })
       Url.create({
         originURL: url,
         shortenedURL: shortUrl
@@ -51,7 +61,20 @@ app.post('/', (req, res) => {
       return res.render('show', { shortUrl })
     })
     .catch(err => console.log(err))
+})
 
+app.get('/:key', (req, res) => {
+  const key = req.params.key
+  console.log(key)
+  console.log(indexUrl + key)
+
+  Url.findOne({ shortenedURL: indexUrl + key })
+    .lean()
+    .then((url) => {
+      console.log(url)
+      res.redirect(url.originURL)
+    })
+    .catch(err => console.log(err))
 })
 
 app.listen(PORT, () => {
