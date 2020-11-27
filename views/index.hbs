@@ -1,32 +1,29 @@
-<div class="form-group text-center row d-flex justify-content-center mt-4">
-  <form action="/" method="POST">
+<div class="d-flex justify-content-center">
+  <div class="form-group text-center mt-4">
 
-    <div class="col-12">
+    <form action="/" method="POST">
+
       {{#if err}}
       <input type="hidden">
       {{else}}
-      <input type="url" class="form-control" name="url" required>
+      <input type="url" class="form-control" name="url" style="width: 360px;" required>
       {{/if}}
-    </div>
 
-    {{#if err}}
-    <div class="col-12">
-      <h4 style="color: red;">{{ err }}</h4>
-    </div>
-    <div class="col-12">
-      <input type="url" class="form-control" id="targetUrl" value="{{ shortUrl }}">
-    </div>
-    {{/if}}
 
-    <div class="col-12">
       {{#if err}}
-      <button class="btn btn-info mt-3" onclick="copyUrl()">Copy</button>
+      <h4 style="color: red;">{{ err }}</h4>
+      <input type="url" class="form-control" id="targetUrl" style="width: 360px;" value="{{ shortUrl }}">
+      {{/if}}
+
+
+      {{#if err}}
+      <button class="btn btn-info mt-3" type="button" onclick="copyUrl()">Copy</button>
       {{else}}
       <button class="btn btn-info mt-3" type="submit">Shorten</button>
       {{/if}}
-    </div>
 
-  </form>
+    </form>
+  </div>
 </div>
 
 <script>
