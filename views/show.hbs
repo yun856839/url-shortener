@@ -8,4 +8,18 @@
     <h4><a href="{{ shortUrl }}">{{ shortUrl }}</a></h4>
   </div>
 
+  <div class="col-12">
+    <input type="url" id="targetUrl" value="{{ shortUrl }}">
+  </div>
+
+  <button class="btn btn-info mt-3" onclick="copyUrl()">Copy</button>
+
 </div>
+
+<script>
+  function copyUrl() {
+    const copyUrl = document.querySelector('#targetUrl')
+    copyUrl.select()
+    document.execCommand('copy')
+  }
+</script>

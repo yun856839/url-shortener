@@ -5,18 +5,34 @@
       {{#if err}}
       <input type="hidden">
       {{else}}
-      <input type="text" name="url" required>
+      <input type="url" name="url" required>
       {{/if}}
     </div>
+
+    {{#if err}}
+    <div class="col-12">
+      <h4 style="color: red;">{{ err }}</h4>
+    </div>
+    <div class="col-12">
+      <input type="url" id="targetUrl" value="{{ shortUrl }}">
+    </div>
+    {{/if}}
 
     <div class="col-12">
       {{#if err}}
-      <h4>{{ err }}<a href="{{shortUrl}}">{{shortUrl}}</a></h4>
+      <button class="btn btn-info mt-3" onclick="copyUrl()">Copy</button>
+      {{else}}
+      <button class="btn btn-info mt-3" type="submit">Shorten</button>
       {{/if}}
     </div>
 
-    <div class="col-12">
-      <button class="btn btn-info mt-3" type="submit">Shorten</button>
-    </div>
   </form>
 </div>
+
+<script>
+  function copyUrl() {
+    const copyUrl = document.querySelector('#targetUrl')
+    copyUrl.select()
+    document.execCommand('copy')
+  }
+</script>

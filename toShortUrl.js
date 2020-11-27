@@ -10,7 +10,7 @@ function toShortUrl(url) {
   }
 
   return url + randomNumber
-  console.log(randomNumber)
+  // console.log(randomNumber)
 }
 
 module.exports = toShortUrl
