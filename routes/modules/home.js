@@ -2,7 +2,7 @@ const express = require('express')
 const Url = require('../../models/url')
 const toShortUrl = require('../../public/javascripts/toShortUrl')
 const router = express.Router()
-const indexUrl = process.env.PORT || 'http://localhost:3000'
+const indexUrl = process.env.PORT ? 'https://fierce-island-71250.herokuapp.com' : 'http://localhost:3000'
 
 router.get('/', (req, res) => {
   res.render('index')
