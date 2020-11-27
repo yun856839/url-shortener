@@ -5,7 +5,7 @@
       {{#if err}}
       <input type="hidden">
       {{else}}
-      <input type="url" name="url" required>
+      <input type="url" class="form-control" name="url" required>
       {{/if}}
     </div>
 
@@ -14,7 +14,7 @@
       <h4 style="color: red;">{{ err }}</h4>
     </div>
     <div class="col-12">
-      <input type="url" id="targetUrl" value="{{ shortUrl }}">
+      <input type="url" class="form-control" id="targetUrl" value="{{ shortUrl }}">
     </div>
     {{/if}}
 
