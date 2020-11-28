@@ -27,12 +27,13 @@ router.post('/', (req, res) => {
             }
             return shortUrl
           })
+          Url.create({
+            originURL: url,
+            shortenedURL: shortUrl
+          })
+          return res.render('show', { shortUrl })
         })
-      Url.create({
-        originURL: url,
-        shortenedURL: shortUrl
-      })
-      return res.render('show', { shortUrl })
+        .catch(err => console.log(err))
     })
     .catch(err => console.log(err))
 })
